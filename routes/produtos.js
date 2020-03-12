@@ -8,9 +8,20 @@
         const produtoDao = new app.infra.ProdutoDao(connection)
         
        produtoDao.lista(function(error,results,fields){
-            res.render('produtos/lista', {lista:results});
+            res.format({
+                html:function(){
+                    res.render('produtos/lista', {lista:results});
+                },
+                json:function(){
+                    res.json(results);
 
-       })
+                }
+
+
+            });
+            
+
+       });
 
         connection.end();
     
@@ -29,7 +40,7 @@
         const produtoDao = new app.infra.ProdutoDao(connection)
 
         produtoDao.save(livros, function(erro, results){
-            res.render('produtos/salvo');
+            res.redirect('produtos/salvo'); //redirect para a pagina nao cadastrar varios
 
         });
 
