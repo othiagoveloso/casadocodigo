@@ -1,5 +1,6 @@
 //const connectionFactory = require('../infra/connectionFactory');
 //const ProdutoDao = require('../infra/ProdutoDao');
+const { check, validationResult } = require('express-validator');
  
     module.exports = function (app){  
     app.get('/produtos',function(req,res){ // metodo get do http
@@ -32,8 +33,30 @@
 
     });
 
-    app.post('/produtos',function(req,res){
+    app.post('/produtos',[
+        
+        check('titulo','titulo precisa ser preenchido').notEmpty(),
+        
+        check('preco').isFloat()
+      ],function(req,res){
         const livros = req.body;
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            
+            console.log('há um erro de validaçáo');
+            res.format({
+                html: function(){
+                    res.status(400).render('produtos/form',{validationErrors:errors.array()});
+                },
+                json: function(){
+                    res.status(400).send(errors.array());
+                }
+            });
+            return;
+        }
+        
+
+
         console.log(livros);
 
         const connection = app.infra.connectionFactory();
