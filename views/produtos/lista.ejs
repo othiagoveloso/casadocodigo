@@ -1,0 +1,39 @@
+<%- include('../includes/header') %>
+
+    <div>
+        <div class ="container min-container">
+           
+          <h2 class="basic-title"> listagem de livros</h2>
+          <table class="table table-condensed table-bordered table-striped table-hover">
+
+            <thead>
+                <tr>
+                    <td>Titulo</td>
+                    <td>preco</td>
+                    <td>descricao</td>
+                </tr>
+            </thead>
+            <tbody>
+
+                <% for(let i=0; i<lista.length; i++){ %>
+
+                    <tr>
+
+                        <td><%= lista[i].titulo %></td>
+                        <td><%= lista[i].preco %></td>
+                        <td><p><%= lista[i].descricao %></p></td>
+
+                    </tr>
+
+                <%} %>
+
+            </tbody>
+
+          </table>
+           
+           <a href="/produtos/form" class="btn btn-success"><span class="glyphicon glyphicon-plus-sign"></span> Novo livro</a>
+        </div>
+    </div>
+
+<%- include('../includes/footer') %>
+
