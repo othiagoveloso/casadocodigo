@@ -37,7 +37,7 @@ const { check, validationResult } = require('express-validator');
         
         check('titulo','titulo precisa ser preenchido').notEmpty(),
         
-        check('preco').isFloat()
+        check('preco','o preco precisa ser números').isFloat()
       ],function(req,res){
         const livros = req.body;
         const errors = validationResult(req);
